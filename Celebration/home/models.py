@@ -1,7 +1,5 @@
-from django.db import models
-from djangotoolbox.fields import ListField
+from django.db import models 
 # Create your models here.
-
 class User(models.Model):
     RESTAURANTS = "Restaurants"
     BARS = "Bars"
@@ -18,15 +16,30 @@ class User(models.Model):
     name = models.CharField(max_length = 100)
     email = models.CharField(max_length = 50)
     password = models.CharField(max_length = 20)
-    event_type = models.CharField(max_lenth = 5, choices = EVENTS_TYPES)
-    tags = ListField()
-    permissions = ListField()
+    event_type = models.CharField(max_length = 11, choices = EVENTS_TYPES)
+    tags = models.CharField(max_length = 200)
+    permissions = models.CharField(max_length = 50)
     
-class Promoter(models.Model, User):
-    permissions_promoter = ListField()
+    def __str__(self):
+        return self.name
+    
+class Promoter(models.Model):
+    name = models.CharField(max_length = 100)
+    email = models.CharField(max_length = 50)
+    password = models.CharField(max_length = 20)
+    permissions_promoter = models.CharField(max_length = 50)
+    
+    def __str__(self):
+        return self.name
 
-class Admin(models.Model, User):
-    permissions_adm = ListField()
+class Admin(models.Model):
+    name = models.CharField(max_length = 100)
+    email = models.CharField(max_length = 50)
+    password = models.CharField(max_length = 20)
+    permissions_adm = models.CharField(max_length = 50)
+    
+    def __str__(self):
+        return self.name
     
 class Event(models.Model):
     
@@ -43,14 +56,16 @@ class Event(models.Model):
     )
     
     name = models.CharField(max_length = 100)
-    event_type = models.CharField(max_lenth = 5, choices = EVENTS_TYPES)
-    tags = ListField()
+    event_type = models.CharField(max_length = 11, choices = EVENTS_TYPES)
+    tags = models.CharField(max_length = 50)
+    
+    def __str__(self):
+        return self.name
     
 class Place(models.Model):
     name = models.CharField(max_length = 100)
     address = models.TextField()
-    tags = ListField()
+    tags = models.CharField(max_length = 50)
     
-
-
-    
+    def __str__(self):
+        return self.name
