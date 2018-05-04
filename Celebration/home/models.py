@@ -134,6 +134,12 @@ class Event(models.Model):
     
     def getAllEventsByTags(self, eventTag):
         return db['events'].find({'tag':{eventTag}})
+    
+    def getAllEventsByPrice(self, price):
+        return db['events'].find({'price':{"$lt": price}})
+    
+    def getAllEventsByPlace(self, place):
+        return db['events'].find({'address':place})
         
     
 class Place(models.Model):
